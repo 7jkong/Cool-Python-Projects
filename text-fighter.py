@@ -1,4 +1,4 @@
-# Go to the 89Pexel profile for the most updated version.
+# https://github.com/89Pexel/text_fighter < copy and paste for the most updated version.
 
 import random
 import sys
