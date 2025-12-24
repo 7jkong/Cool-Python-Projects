@@ -1,0 +1,184 @@
+import random
+import sys
+import time
+
+done = False
+
+hp = 150
+healers = 5
+score = 0
+enemy_hp = 25912830985787234987293847
+# doesn't matter because it will change after, just to define enemy_hp
+enemies = ["Bed", "Toaster", "Sofa", "Lamp"]
+
+def press_enter():
+    print("\n\033[5m<Press enter to continue>\033[0m")
+    input()
+
+def typewriter(text, delay=0.03):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(delay)
+    print() 
+
+print("--- WELCOME ---")
+
+name = input("Enter your name to play: ").strip()
+
+if name.lower() in ["poo", "poop", "poopy"]:
+    print("That is very immature!")
+    sys.exit()
+
+elif name == "":
+    print("Well... You have to have a name!")
+    sys.exit()
+
+typewriter(f"Thank you {name} for playing, I hope you enjoy this game!")
+
+press_enter()
+
+print("Please note that using certain terminals won't work with the blinking text, VS CODE's terminal won't show the blinking text,")
+print("command prompt has a chance of working and not working, if it does work at first then it'll be fine for the rest of the time.")
+typewriter("89Pexel requested this to be added, thanks to 89Pexel for contributing his project.")
+
+press_enter()
+
+while hp > 0:
+    current_enemy = random.choice(enemies)
+    print(f"\n*** A wild {current_enemy} appeared! ***")
+
+    if current_enemy == "Toaster":
+        enemy_hp = random.randint(55, 80)
+    if current_enemy == "Bed":
+        enemy_hp = random.randint(50, 65)
+    if current_enemy == "Sofa":
+        enemy_hp = random.randint(60, 85)
+    if current_enemy == "Lamp":
+        enemy_hp = random.randint(50, 70)
+
+    
+    while enemy_hp > 0 and hp > 0:
+        print(f"\n[ {current_enemy}: {enemy_hp} HP ] | [ YOU: {hp} HP | Healers: {healers} ]")
+        choice = input(f"Actions: [1] Attack [2] Heal: ")
+
+        
+        if current_enemy == "Toaster":
+            if choice == "1":
+                dmg = random.randint(10, 15)
+
+                if random.random() < 0.2: 
+                   dmg = dmg * 2
+                   print("CRITICAL HIT! DOUBLE DAMAGE!")
+
+                enemy_hp -= dmg
+                hp -= 5 
+                print(f"You punch the metal! {dmg} dmg to it, 5 dmg to you.")
+            elif choice == "2":
+                if healers > 0:
+                    hp += 25
+                    healers -= 1
+                    print("Healed +25 HP!")
+            else: print("No healers left!")
+
+        
+        elif current_enemy == "Bed":
+            if choice == "1":
+                dmg = random.randint(5, 13)
+
+                if random.random() < 0.2: 
+                    dmg = dmg * 2
+                    print("CRITICAL HIT! DOUBLE DAMAGE!")
+
+
+                enemy_hp -= dmg
+                print(f"You unscrew the Bed! {dmg} damage.")
+            elif choice == "2":
+                if healers > 0:
+                    hp += 25
+                    healers -= 1
+                    print("Healed +25 HP!")
+                else: print("No healers left!")
+
+        
+        elif current_enemy == "Sofa":
+            if choice == "1":
+                dmg = random.randint(8, 12)
+
+                if random.random() < 0.2:
+                    dmg = dmg * 2
+                    print("CRITICAL HIT! DOUBLE DAMAGE!")
+
+                enemy_hp -= dmg
+                hp += 2 
+                print(f"Soft punch! {dmg} dmg. The cushions heal you +2 HP. Lower damage due to the cushions.")
+            elif choice == "2":
+                if healers > 0:
+                    hp += 25
+                    healers -= 1
+                    print("Healed +25 HP!")
+                else: print("No healers left!")
+
+        
+        elif current_enemy == "Lamp":
+            if choice == "1":
+                dmg = random.randint(5, 17)
+
+                if random.random() < 0.2:
+                    dmg = dmg * 2
+                    print("CRITICAL HIT! DOUBLE DAMAGE!")
+
+                enemy_hp -= dmg
+                print(f"You smash the bulb! {dmg} damage.")
+            elif choice == "2":
+                if healers > 0:
+                    hp += 25
+                    healers -= 1
+                    print("Healed +25 HP!")
+                else: print("No healers left!")
+
+        
+        if enemy_hp > 0 and hp > 0:
+            e_dmg = random.randint(5, 15)
+            hp -= e_dmg
+            print(f"The {current_enemy} hits back for {e_dmg}!")
+
+    
+    if hp > 0:
+        score += 1
+        print(f"\n--- VICTORY! You destroyed the {current_enemy}! ---")
+        print(f"Total enemies defeated so far: {score}")
+        
+        
+        if done == True:
+            print()
+        elif done == False:
+            random.random() <0.2
+
+            typewriter(f"\n{name}: I bought too much furniture...")
+
+            press_enter()
+
+            done = True
+        
+        
+        if random.random() < 0.3:
+            healers += 1
+            messages = [
+            "You squint your eyes as you see something unusual... It's a healer in the wreckage!",
+            "You feel like you spotted something off. Then you realise its a healer!",
+            "You search the wreckage for any valuable things, you find a healer!",
+            "You see a glimmer of something... Oh... It's a healer!",
+            "What's that? Interesting, wait a second... It's a healer!"
+            ]
+            print(random.choice(messages))
+    else:
+        if score >= 11:
+            print(f"\n--- You lose ---")
+            print(f"Final Score: {score} enemies defeated.")
+            print("You have beaten over 10 enemies. Congratulations!")
+            print("Amazing!")
+        else:
+            print(f"\n--- You lose ---")    
+            print(f"Final Score: {score} enemies defeated.")
+            print("Nice!")
